@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+        .card-custom {
+            background-color: #808080;
+            color: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 1.2rem;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .card-custom h2 {
+            font-size: 1.5rem;
+        }
+        .modal-content {
+            background-color: #f5f5f5;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+        .coming-soon {
+            font-size: 1.5rem;
+            color: #ff4500;
+            font-weight: bold;
+            padding: 20px;
+            background-color: #fff3cd;
+            border-radius: 10px;
+            border: 1px solid #ffca2c;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="admin_page.html">Dashboard Menu</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="admin_page.html">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="faculties.html">Faculties</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="studentsLink">Students</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-dark text-white" href="index.html" id="logout">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card-custom" id="totalStudents" data-class="Total Students">
+                        <h2>Total Students</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card-custom" id="class10" data-class="Class 10">
+                        <h2>Class 10</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card-custom" id="class9" data-class="Class 9">
+                        <h2>Class 9</h2>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card-custom" id="class8" data-class="Class 8">
+                        <h2>Class 8</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card-custom" id="class7" data-class="Class 7">
+                        <h2>Class 7</h2>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card-custom" id="class6" data-class="Class 6">
+                        <h2>Class 6</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Class Information -->
+    <div class="modal fade" id="classModal" tabindex="-1" aria-labelledby="classModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="classModalLabel">Class Information</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h3 id="className">Class Name</h3>
+                    <p id="classValue">Admin will update this value.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Students -->
+    <div class="modal fade" id="studentsModal" tabindex="-1" aria-labelledby="studentsModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="studentsModalLabel">Coming Soon</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="coming-soon">
+                        Exciting features for Students are on the way. Stay tuned!
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script>
+        const cardElements = document.querySelectorAll('.card-custom');
+        cardElements.forEach(card => {
+            card.addEventListener('click', function () {
+                const className = this.getAttribute('data-class');
+                const modal = new bootstrap.Modal(document.getElementById('classModal'));
+                const classTitle = document.getElementById('className');
+                const classValue = document.getElementById('classValue');
+                classTitle.innerHTML = className;
+                classValue.innerHTML = "No data available yet. Admin will update this.";
+                modal.show();
+            });
+        });
+
+        const studentsLink = document.getElementById('studentsLink');
+        studentsLink.addEventListener('click', function () {
+            const modal = new bootstrap.Modal(document.getElementById('studentsModal'));
+            modal.show();
+        });
+    </script>
+</body>
+</html>

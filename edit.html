@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Details</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+        .container {
+            margin-top: 20px;
+        }
+        .section-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .edit-link {
+            text-decoration: none;
+            color: #0d6efd;
+            margin-left: 10px;
+        }
+        .form-group {
+            margin-bottom: 10px;
+        }
+        .gray-box {
+            background-color: #e9ecef; /* Light gray */
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            min-height: 40px; /* Ensure consistent height */
+            display: flex;
+            align-items: center;
+        }
+        .double-box {
+            display: flex;
+            gap: 10px; /* Space between boxes */
+        }
+        .double-box .gray-box {
+            flex: 1; /* Equal width for boxes */
+        }
+        .hifz-details {
+            border: 1px solid black;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .hifz-month {
+            background-color: #e9ecef;
+            padding: 5px;
+            border-radius: 3px;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+        }
+        .hifz-month .dot {
+            width: 8px;
+            height: 8px;
+            background-color: black;
+            border-radius: 50%;
+            margin-left: 5px;
+        }
+        input, select {
+            width: 100%;
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        input[disabled] {
+            background-color: #f0f0f0;
+        }
+        .update-btn, .save-btn {
+            margin-top: 20px;
+            padding: 10px 15px;
+            font-size: 16px;
+            background-color: #0d6efd;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .update-btn:disabled, .save-btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container" id="studentDetailsContainer">
+    <button class="close-btn" onclick="window.location.href='faculty.html'">&times;</button>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="section-title">Personal Details <a href="#" class="edit-link" id="editLink" onclick="editPersonalDetails()">edit</a></div>
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" class="gray-box" placeholder="Enter student name" disabled>
+            </div>
+            <div class="double-box">
+              <div class="form-group">
+                  <label for="class">Class:</label>
+                  <input type="text" id="class" class="gray-box" placeholder="Enter class" disabled>
+              </div>
+              <div class="form-group">
+                  <label for="admno">Adm. No:</label>
+                  <input type="number" id="admno" class="gray-box" placeholder="Enter admission number" disabled>
+              </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="section-title">Hifz Details <a href="#" class="edit-link" id="hifzEditLink" onclick="editHifzDetails()">edit</a></div>
+            <div class="hifz-details">
+                <div class="form-group">
+                    <label for="attendance">Attendance:</label>
+                    <input type="text" id="attendance" class="gray-box" placeholder="Enter attendance details">
+                </div>
+                <div class="hifz-month">Month</div>
+                <label for="start">Start month:</label>
+
+                <input type="month" id="start" name="start" min="2018-03" value="2018-05" />
+               
+                <div class="form-group">
+                    <label for="oldPage">O.Page</label>
+                    <label for="newPage">N.Page</label>
+                    <label for="juz">Juz</label>
+                    <div class="gray-box">
+                        <input type="number" id="oPage" placeholder="O.Page">
+                        <input type="number" id="nPage" placeholder="N.Page">
+                        <input type="number" id="juz" placeholder="Juz">
+                    </div>
+                </div>
+            </div>
+            <!-- Save button for Hifz details -->
+            <button id="saveButton" class="save-btn" onclick="saveHifzDetails()" disabled>Save</button>
+        </div>
+    </div>
+
+    <!-- Update button for Personal details -->
+    <button id="updateButton" class="update-btn" onclick="updateDetails()" disabled>Update</button>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    // Function to enable editing personal details
+    function editPersonalDetails() {
+        // Enable the personal detail inputs
+        document.getElementById('name').disabled = false;
+        document.getElementById('class').disabled = false;
+        document.getElementById('admno').disabled = false;
+        
+        // Change the "edit" link to a "save" link
+        const editLink = document.getElementById('editLink');
+        editLink.textContent = 'save';
+        editLink.setAttribute('onclick', 'savePersonalDetails()');
+        
+        // Enable the update button
+        document.getElementById('updateButton').disabled = false;
+    }
+
+    // Function to save personal details
+    function savePersonalDetails() {
+        // Disable the personal detail inputs
+        document.getElementById('name').disabled = true;
+        document.getElementById('class').disabled = true;
+        document.getElementById('admno').disabled = true;
+
+        // Change the "save" link back to "edit"
+        const editLink = document.getElementById('editLink');
+        editLink.textContent = 'edit';
+        editLink.setAttribute('onclick', 'editPersonalDetails()');
+
+        // Disable the update button after saving
+        document.getElementById('updateButton').disabled = true;
+    }
+
+    // Function to handle the Save button action for Hifz Details
+    function saveHifzDetails() {
+        // Handle the save action here (for now, just log the values)
+        console.log("Saved Hifz Details:");
+        console.log("Attendance:", document.getElementById('attendance').value);
+        console.log("Start Month:", document.getElementById('start').value);
+        console.log("O.Page:", document.getElementById('oPage').value);
+        console.log("N.Page:", document.getElementById('nPage').value);
+        console.log("Juz:", document.getElementById('juz').value);
+
+        // Disable the Save button after saving
+        document.getElementById('saveButton').disabled = true;
+
+        // Optionally, show a success message or alert
+        alert("Hifz Details saved successfully!");
+    }
+
+    // Function to enable editing Hifz details
+    function editHifzDetails() {
+        // Enable the Hifz detail inputs
+        document.getElementById('attendance').disabled = false;
+        document.getElementById('start').disabled = false;
+        document.getElementById('oPage').disabled = false;
+        document.getElementById('nPage').disabled = false;
+        document.getElementById('juz').disabled = false;
+        
+        // Change the "edit" link to a "save" link
+        const hifzEditLink = document.getElementById('hifzEditLink');
+        hifzEditLink.textContent = 'save';
+        hifzEditLink.setAttribute('onclick', 'saveHifzDetails()');
+        
+        // Enable the Save button
+        document.getElementById('saveButton').disabled = false;
+    }
+
+    // Function to handle the Update button action
+    function updateDetails() {
+        // Handle the update action here (for now, just log the values)
+        console.log("Updated Personal Details:");
+        console.log("Name:", document.getElementById('name').value);
+        console.log("Class:", document.getElementById('class').value);
+        console.log("Adm. No:", document.getElementById('admno').value);
+        console.log("Attendance:", document.getElementById('attendance').value);
+        console.log("Start Month:", document.getElementById('start').value);
+        console.log("O.Page:", document.getElementById('oPage').value);
+        console.log("N.Page:", document.getElementById('nPage').value);
+        console.log("Juz:", document.getElementById('juz').value);
+
+        // Redirect to faculty.html after update
+        window.location.href = 'faculty.html';
+    }
+</script>
+<script>
+    // Function to handle the Update button action
+    function updateDetails() {
+        // Handle the update action here (for now, just log the values)
+        console.log("Updated Personal Details:");
+        console.log("Name:", document.getElementById('name').value);
+        console.log("Class:", document.getElementById('class').value);
+        console.log("Adm. No:", document.getElementById('admno').value);
+        console.log("Attendance:", document.getElementById('attendance').value);
+        console.log("Start Month:", document.getElementById('start').value);
+        console.log("O.Page:", document.getElementById('oPage').value);
+        console.log("N.Page:", document.getElementById('nPage').value);
+        console.log("Juz:", document.getElementById('juz').value);
+
+        // Show the success message
+        const successMessage = document.getElementById('successMessage');
+        successMessage.style.display = 'block';
+
+        // Hide the success message after 1 seconds
+        setTimeout(function() {
+            successMessage.style.display = 'none';
+        }, 1000);
+
+        // Optionally, redirect to faculty.html after a short delay
+        setTimeout(function() {
+            window.location.href = 'faculty.html';
+        }, 1000);
+    }
+</script>
+<div id="successMessage" class="alert alert-success" style="display:none;">
+    Data updated successfully!
+</div>
+
+
+</body>
+</html>

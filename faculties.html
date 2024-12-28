@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faculties</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+        .sidebar {
+            background-color: #f8f9fa;
+            padding: 20px;
+            height: 100vh;
+            position: fixed;
+            width: 200px;
+        }
+        .sidebar a {
+            display: block;
+            padding: 10px;
+            margin-bottom: 5px;
+            text-decoration: none;
+            color: #333;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .sidebar a:hover {
+            background-color: #e9ecef;
+        }
+        .main-content {
+            margin-left: 220px;
+            padding: 20px;
+        }
+        .faculty-card {
+            background-color: #e9ecef;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #ced4da;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+        }
+        .faculty-card a {
+            text-decoration: none;
+            color: #333;
+            border-bottom: 2px solid #333;
+            padding-bottom: 2px;
+            transition: border-color 0.3s;
+        }
+        .faculty-card a:hover {
+            border-color: #007bff;
+            color: #007bff;
+        }
+        .add-faculty-form {
+            display: none; /* Hide by default */
+            margin-bottom: 20px;
+        }
+        .coming-soon {
+            text-align: center;
+            margin-top: 50px;
+            font-size: 1.5rem;
+            color: #007bff;
+        }
+        @media (max-width: 768px) {
+            .sidebar {
+                position: static;
+                width: 100%;
+                height: auto;
+            }
+            .main-content {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="faculties.html">Faculties Page</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="admin_page.html">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="faculties.html">Faculties</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="studentsLink">Students</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <div class="container">
+            <!-- Add Faculty Form -->
+            <div class="add-faculty-form" id="addFacultyForm">
+                <input type="text" id="facultyNameInput" class="form-control" placeholder="Enter Faculty Name">
+                <button class="btn btn-primary mt-2" id="saveFacultyBtn">Save</button>
+                <button class="btn btn-secondary mt-2" id="cancelAddBtn">Cancel</button>
+            </div>
+
+            <!-- Add Faculty Button -->
+            <button class="btn btn-success mb-3" id="addFacultyBtn">Add Faculty</button>
+
+            <!-- Faculty Cards -->
+            <div class="row" id="facultyCardsContainer">
+                <!-- Example Faculty Cards -->
+                <div class="col-md-6">
+                    <div class="faculty-card">
+                        <a href="faculty.html">Faculty Name</a>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="faculty-card">
+                        <a href="faculty.html">Faculty Name</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Coming Soon Section for Students -->
+            <div id="studentsSection" class="coming-soon" style="display: none;">
+                <p>Students page is coming soon!</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script>
+        // Get references to elements
+        const addFacultyBtn = document.getElementById('addFacultyBtn');
+        const addFacultyForm = document.getElementById('addFacultyForm');
+        const saveFacultyBtn = document.getElementById('saveFacultyBtn');
+        const cancelAddBtn = document.getElementById('cancelAddBtn');
+        const facultyNameInput = document.getElementById('facultyNameInput');
+        const facultyCardsContainer = document.getElementById('facultyCardsContainer');
+        const studentsLink = document.getElementById('studentsLink');
+        const studentsSection = document.getElementById('studentsSection');
+
+        // Show the form when Add Faculty button is clicked
+        addFacultyBtn.addEventListener('click', function () {
+            addFacultyForm.style.display = 'block'; // Show form
+            addFacultyBtn.style.display = 'none';  // Hide Add Faculty button
+        });
+
+        // Cancel adding faculty
+        cancelAddBtn.addEventListener('click', function () {
+            addFacultyForm.style.display = 'none'; // Hide form
+            addFacultyBtn.style.display = 'block'; // Show Add Faculty button again
+        });
+
+        // Save the new faculty
+        saveFacultyBtn.addEventListener('click', function () {
+            const facultyName = facultyNameInput.value.trim();
+            if (facultyName) {
+                // Create a new faculty card
+                const facultyCard = document.createElement('div');
+                facultyCard.classList.add('col-md-6');
+                facultyCard.innerHTML = `
+                    <div class="faculty-card">
+                        <a href="#">${facultyName}</a>
+                    </div>
+                `;
+                // Append the new card to the container
+                facultyCardsContainer.appendChild(facultyCard);
+
+                // Reset the input and hide the form
+                facultyNameInput.value = '';
+                addFacultyForm.style.display = 'none';
+                addFacultyBtn.style.display = 'block'; // Show Add Faculty button again
+            } else {
+                alert('Please enter a faculty name.');
+            }
+        });
+
+        // Show Coming Soon message for Students
+        studentsLink.addEventListener('click', function (e) {
+            e.preventDefault(); // Prevent the default action
+            studentsSection.style.display = 'block'; // Show Coming Soon section
+        });
+    </script>
+    
+</body>
+</html>
